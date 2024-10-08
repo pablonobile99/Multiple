@@ -80,39 +80,72 @@ switch(i){
         break;
 }
 */
-let x=0;
-let y=0;
-let tecla;
+
+//VARIABLES---------------------------
+let pos=[0,0]
+let tecla
+
+let jugadores = [
+    {nombre:"jugador1", id:0, score:5}
+]
+let id = 0;
+
+//FUNCIONES---------------------------
 
 function puntero(tecla){
     switch(tecla){
         case "a":
-            if(x>0){
-                x--;
+            if(pos[0]>0){
+                pos[0]--
             }
-            break;
+            break
         case "d":
-            if(x<100){
-                x++;
+            if(pos[0]<100){
+                pos[0]++
             }
-            break;
+            break
         case "w":
-            if(y>0){
-                y--;
+            if(pos[1]>0){
+                pos[1]--
             }
             break;
         case "s":
-            if(y<100){
-                y++;
+            if(pos[1]<100){
+                pos[1]++
             }
-            break;
+            break
     }
-    console.clear();
-    console.log("x: " + x);
-    console.log("y: " + y);
+    console.clear()
+    console.log("[x,y] : " + pos)
 }
 
-while(tecla!="m"){
-    tecla = prompt("ASDW para moverte M para salir");
-    puntero(tecla);
+const reg = () => {
+    const nombre = prompt("ingresa tu nombre")
+    id++
+    const jugador = {nombre, id, score:0}
+    alert("Hola " + nombre + ", eres el jugador numero: " + id)
+    jugadores.push(jugador)
 }
+
+//MAIN---------------------------
+
+reg()
+reg()
+
+console.log(jugadores);
+
+
+while(tecla!="m"){
+    tecla = prompt("ASDW para moverte M para salir")
+    puntero(tecla)
+}
+
+
+console.log(pos.indexOf(0))
+
+console.log("x: " + pos.shift())
+console.log("y: " + pos)
+
+
+
+
