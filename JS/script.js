@@ -80,7 +80,7 @@ switch(i){
         break;
 }
 */
-
+/*
 //VARIABLES---------------------------
 let pos=[0,0]
 let tecla
@@ -89,7 +89,8 @@ let jugadores = [
     {nombre:"jugador1", id:0, score:5}
 ]
 let id = 0;
-
+*/
+/*
 //FUNCIONES---------------------------
 
 function puntero(tecla){
@@ -126,26 +127,108 @@ const reg = () => {
     alert("Hola " + nombre + ", eres el jugador numero: " + id)
     jugadores.push(jugador)
 }
-
+*/
 //MAIN---------------------------
-
+/*
 reg()
 reg()
+*/
 
-console.log(jugadores);
-
-
-while(tecla!="m"){
+/*while(tecla!="m"){
     tecla = prompt("ASDW para moverte M para salir")
     puntero(tecla)
-}
-
+}*/
+/*
 
 console.log(pos.indexOf(0))
 
 console.log("x: " + pos.shift())
 console.log("y: " + pos)
+*/
+
+const triviaMatematica = {
+    "P0":{
+        "pregunta":"PPREGUNTA 1",
+        "0": "RESPUESTA 0",
+        "1": "RESPUESTA 1",
+        "2": "RESPUESTA 2",
+    },
+    "P1":{
+        "pregunta":"PPREGUNTA 2",
+        "0": "RESPUESTA 0",
+        "1": "RESPUESTA 1",
+        "2": "RESPUESTA 2"
+    },
+    "P2":{
+        "pregunta":"PPREGUNTA 3",
+        "0": "RESPUESTA 0",
+        "1": "RESPUESTA 1",
+        "2": "RESPUESTA 2"
+    }
+}
+const triviaCultural = {
+    "P0":{
+        "pregunta":"PPREGUNTA 1",
+        "0": "RESPUESTA 0",
+        "1": "RESPUESTA 1",
+        "2": "RESPUESTA 2",
+    },
+    "P1":{
+        "pregunta":"PPREGUNTA 2",
+        "0": "RESPUESTA 0",
+        "1": "RESPUESTA 1",
+        "2": "RESPUESTA 2"
+    },
+    "P2":{
+        "pregunta":"PPREGUNTA 3",
+        "0": "RESPUESTA 0",
+        "1": "RESPUESTA 1",
+        "2": "RESPUESTA 2"
+    }
+}
+
+const ahorcadoCine = ["palabra1","palabra2","palabra3"];
+const ahorcadoFamosos = ["palabra1","palabra2","palabra3"];
+
+const suerte = {}
+
+function cadenaaleatoria(largo){
+    let cadena = [];
+    let valor = -1;
+    let filtro;
+    
+    while(cadena.length<largo){
+        valor = aleatorio(largo); 
+        filtro = cadena.find((repetido) => repetido == valor);
+        if(filtro != valor){
+            cadena.push(valor);
+        }
+    }
+    return cadena;
+}
 
 
 
+function aleatorio(max){
+    let numero;
+    numero = Math.floor(Math.random()*max);
+    return numero
+}
+
+
+
+function recorrerobjeto (objeto){
+    const lar = Object.keys(triviaMatematica.P0).length -1;
+    let prueba = cadenaaleatoria(lar);
+    console.log(prueba);
+    for(i = 0; i<lar; i++){
+        console.log(objeto[prueba[i]])
+    }
+}
+
+
+
+
+
+recorrerobjeto(triviaMatematica.P0);
 
