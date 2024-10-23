@@ -3,5 +3,13 @@ h1{
 }
 
 img{
-    width: 10%;
+    width: 20%;
+}
+
+.volver{
+    z-index: 2;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    display: inline-block;
 }
