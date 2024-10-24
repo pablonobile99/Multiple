@@ -1,56 +1,47 @@
-//VARIABLES GLOBALES---------
-
 let vidas = 3;
 let victorias = 0;
+let intentos = 0;
 
-//CATEGORIAS-----------------
+const intentosSuerte = 10;
+const intentosTrivia = 1;
+const intentosGanar = 0;
+const intentosAhorcado = 10;
 
 
+//PUNTAJE------------------------------------------------------
+const puntaje = document.getElementById("puntaje");
+const textoVidas = document.createElement("p");
+const textoVictorias = document.createElement("p");
+textoVidas.innerHTML = "vidas: " + vidas;
+textoVictorias.innerHTML = "victorias: " + victorias;
+textoVidas.style = "display: inline-block; margin: 1%"
+textoVictorias.style = "display: inline-block; margin: 1%"
+puntaje.appendChild(textoVidas);
+puntaje.appendChild(textoVictorias);
 
 
-const triviaMatematica = {
-    "P0": {
-        "pregunta": "PPREGUNTA 1",
-        "0": "RESPUESTA 0",
-        "1": "RESPUESTA 1",
-        "2": "RESPUESTA 2",
-    },
-    "P1": {
-        "pregunta": "PPREGUNTA 2",
-        "0": "RESPUESTA 0",
-        "1": "RESPUESTA 1",
-        "2": "RESPUESTA 2"
-    },
-    "P2": {
-        "pregunta": "PPREGUNTA 3",
-        "0": "RESPUESTA 0",
-        "1": "RESPUESTA 1",
-        "2": "RESPUESTA 2"
-    }
-}
-const triviaCultural = {
-    "P0": {
-        "pregunta": "PPREGUNTA 1",
-        "0": "RESPUESTA 0",
-        "1": "RESPUESTA 1",
-        "2": "RESPUESTA 2",
-    },
-    "P1": {
-        "pregunta": "PPREGUNTA 2",
-        "0": "RESPUESTA 0",
-        "1": "RESPUESTA 1",
-        "2": "RESPUESTA 2"
-    },
-    "P2": {
-        "pregunta": "PPREGUNTA 3",
-        "0": "RESPUESTA 0",
-        "1": "RESPUESTA 1",
-        "2": "RESPUESTA 2"
-    }
+function mostrarPuntaje() {
+    textoVidas.innerHTML = "vidas: " + vidas;
+    textoVictorias.innerHTML = "victorias: " + victorias;
 }
 
-const ahorcadoCine = ["palabra1", "palabra2", "palabra3"];
-const ahorcadoFamosos = ["palabra1", "palabra2", "palabra3"];
+mostrarPuntaje();
+
+
+const textoIntentos = document.createElement("p");
+textoIntentos.innerHTML = "Intentos: " + intentos;
+textoIntentos.style = "display: inline-block; margin: 1%"
+puntaje.appendChild(textoIntentos);
+
+function mostrarIntentos() {
+    textoIntentos.innerHTML = "Intentos: " + intentos;
+}
+
+mostrarIntentos();
+
+//---------------------------------------------------------------
+
+
 
 //FUNCION ALEATORIA
 
@@ -86,6 +77,83 @@ function recorrerobjeto(objeto) {
 }
 
 
-//CARTAS----------------------
+//BOTONES-y-MENU-------------------------------------------------------------
 
 
+
+
+const listaJuegos = ["Trivia","Ahorcado","Suerte","Ganar"];
+let juegoActivo = [false,false,false,false];
+
+const menu = document.getElementById("menu");
+const h1 = document.createElement("h1");
+h1.innerHTML = "Bienvenidos a MULTIPLE";
+menu.appendChild(h1);
+
+const h4 = document.createElement("h4");
+h4.innerHTML = "Elige tu categoria y comienza a jugar. Por cada victoria sumas un punto, al llegar a 5 ganas. Por cada derrota perdes una vida, al perder las 3 se acabó el juego.";
+menu.appendChild(h4);
+
+const h3 = document.createElement("h3");
+h3.innerHTML = "Elije un juego";
+menu.appendChild(h3);
+
+const propiedadBase = "display: none";
+const propiedadActiva = "display:";
+
+const Suerte = document.getElementById("suerteBlock");
+Suerte.setAttribute("style", propiedadBase);
+const Trivia = document.getElementById("triviaBlock");
+Trivia.setAttribute("style", propiedadBase);
+const Ahorcado = document.getElementById("ahorcadoBlock");
+Ahorcado.setAttribute("style", propiedadBase);
+const Ganar = document.getElementById("ganarBlock");
+Ganar.setAttribute("style", propiedadBase);
+
+
+function ejecutarMenu(juego){
+    Suerte.setAttribute("style", propiedadBase);
+    Trivia.setAttribute("style", propiedadBase);
+    Ahorcado.setAttribute("style", propiedadBase);
+    Ganar.setAttribute("style", propiedadBase);
+    borrarCartas();
+
+    if (juego==listaJuegos[0]) {
+        Trivia.setAttribute("style", propiedadActiva);
+        intentos = intentosTrivia;
+        h3.innerHTML = "Has elegido " + listaJuegos[0];
+    }
+    if (juego==listaJuegos[1]) {
+        Ahorcado.setAttribute("style", propiedadActiva);
+        intentos = intentosAhorcado;
+        h3.innerHTML = "Has elegido " + listaJuegos[1];
+    }
+    if (juego==listaJuegos[2]) {
+        intentos = intentosSuerte;
+        Suerte.setAttribute("style", propiedadActiva);
+        h3.innerHTML = "Has elegido " + listaJuegos[2];
+        crearCartas();
+    }
+    if (juego==listaJuegos[3]) {
+        Ganar.setAttribute("style", propiedadActiva);
+        intentos = intentosGanar;
+        h3.innerHTML = "Has elegido " + listaJuegos[3];
+        vidas--;
+    }
+    mostrarPuntaje();
+    mostrarIntentos();
+}
+
+
+for (let i = 0; i < 4; i++) {
+    const button = document.createElement("button");
+    button.innerHTML = listaJuegos[i];
+    button.style = "display: inlineblock; margin: 1%"
+    button.id = "buttonMenu" + i;
+    button.addEventListener("click",
+        function (){
+            ejecutarMenu(listaJuegos[i]);
+        }
+    )
+    menu.appendChild(button);
+}

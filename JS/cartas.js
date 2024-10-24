@@ -1,20 +1,15 @@
-const cantidadCartas = 5;
-let cantidadCartasGanadoras = 1;
-let cantidadCartasNeutras = 1;
+const cantidadCartas = 12;
+let cantidadCartasGanadoras = 2;
+let cantidadCartasNeutras = 4;
 let cantidadCartasMalas = 3;
-let intentos = 1;
+
 
 let cartas = [];
 let imagen = [];
 
 
 let cartasActivas = [];
-let cartasVoletadas = [];
-
-for (i = 0; i < cantidadCartas; i++) {
-    cartasActivas.push(false);
-    cartasVoletadas.push(false);
-}
+let cartasVolteadas = [];
 
 const srcCarta = {
     "0": "../img/cartas/ganar.png",
@@ -50,50 +45,40 @@ function crearBancoImg() {
 
 crearBancoImg();
 
-//PUNTAJE------------------------------------------------------
-const puntaje = document.getElementById("puntaje");
-const textoIntentos = document.createElement("p");
-const textoVidas = document.createElement("p");
-const textoVictorias = document.createElement("p");
-textoIntentos.innerHTML = "Intentos: " + intentos;
-textoVidas.innerHTML = "vidas: " + vidas;
-textoVictorias.innerHTML = "victorias: " + victorias;
-puntaje.appendChild(textoIntentos);
-puntaje.appendChild(textoVidas);
-puntaje.appendChild(textoVictorias);
-
-function mostrarPuntaje() {
-    textoIntentos.innerHTML = "Intentos: " + intentos;
-    textoVidas.innerHTML = "vidas: " + vidas;
-    textoVictorias.innerHTML = "victorias: " + victorias;
+//---------------------------------------------------------------
+function accionCarta(numero) {
+    intentos--;
+    if (imagen[numero] == srcCarta[0]) victorias++;
+    if (imagen[numero] == srcCarta[1]) intentos += 1;
+    if (imagen[numero] == srcCarta[2]) vidas--;
 }
 
-mostrarPuntaje();
-
-//---------------------------------------------------------------
-
-function voltearCarta(i) {
+function revelarCarta(i) {
     if (cartasActivas[i] === false) {
         if (intentos > 0) {
-            if (cartasVoletadas[i] == true) {
+            if (cartasVolteadas[i] == true) {
                 cartasActivas[i] = true;
                 document.getElementById("carta" + i).setAttribute("src", imagen[i]);
                 accionCarta(i);
                 mostrarPuntaje();
+                mostrarIntentos();
             }
         }
     }
 }
 
 const crearCarta = (tipo) => {
+    cartasActivas.push(false);
+    cartasVolteadas.push(false);
     const img = document.createElement("img");
     img.src = "../img/cartas/back.png";
     img.id = "carta" + tipo;
     img.orden = tipo;
+    img.style = "display: flexbox;";
     img.addEventListener("click",
         function () {
-            cartasVoletadas[img.orden] = true;
-            voltearCarta(img.orden);
+            cartasVolteadas[img.orden] = true;
+            revelarCarta(img.orden);
         }
     );
     return img;
@@ -108,13 +93,26 @@ const crearTablero = () => {
     }
 };
 
-crearTablero();
 
-function accionCarta(numero) {
-    intentos--;
-    if (imagen[numero] == srcCarta[0]) victorias++;
-    if (imagen[numero] == srcCarta[1]) intentos += 1;
-    if (imagen[numero] == srcCarta[2]) vidas--;
+function borrarCartas(){
+    if(document.getElementById("carta0")){
+        for (let cardNumber = 0; cardNumber < cantidadCartas; cardNumber++) {
+            let card = document.getElementById("carta" + cardNumber);
+            tablero.removeChild(card);
+            cartasActivas = [];
+            cartasVolteadas = [];
+        }
+    }
 }
 
-imagen = recorrerobjeto(imagenCarta);
+function crearCartas(){
+    crearTablero();
+    imagen = recorrerobjeto(imagenCarta);
+}
+
+function reiniciarCartas(){
+    borrarCartas();
+    crearCartas();
+}
+
+//crearCartas();

@@ -5,31 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multiple</title>
     <link rel="stylesheet" href="/CSS/style.css">
-    <script defer src="./JS/script.js"></script>
+
 </head>
 <body>
 
-    <p>La idea del sitio seria una trivia interactiva. En pantalla se motrará una pregunta y 5 preguntas de multiplechoise para seleccionar utilizando las frechas y enter para seleccionar. Son 5 rondas donde tendrias 2 fallos antes de perder. El programa actual tiene la logica del puntero junto con sus limites.</p>
+    <div id="menu"></div>
 
-    <h1>Bienvenidos a Multiple. Registrate para empezar a jugar</h1>
-    <p>
-        Nombre:
-    </p>
-    <input type="text">
-    <p>
-        Mail:
-    </p>
-    <input type="text">
+    <div id="puntaje"></div>
+    
+    <div id="suerteBlock">
+        <div id="tablero"></div>
+    </div>
 
-    <p></p>
+    <div id="triviaBlock">
+        <div id="cuestionario"></div>
+    </div>
+    <div id="ganarBlock">
+        <p>Listo, ganaste un punto.</p>
+        <p>Fue muy facil parece...</p>
+        <p>¿Que opinas? Esta bueno retarse a uno mismo. No deberia contar...</p>
+        <p>Y de tu parte no esta bueno que quieras ganar puntos sin jugartela.</p>
+        <p>No es ético.</p>
+        <p>Me siento un poco ofendido.</p>
+        <p>Que hayas querido ganar mi juego asi tan fácil.</p>
+        <p>Lo siento, pero en la vida hay consecuencias...</p>
+        <p>Perdiste una vida. Volver al menu y ganá tus puntos como corresponde.</p>
+        <p>Perdón. No quiero ser el malo, pero alguien tiene que ser serio.</p>
+        <p>Te quiero.</p>
+    </div>
+    <div id="ahorcadoBlock">
+    </div>
 
-    <button>Aceptar</button>
-
-    <p>Eres el jugador numero:</p>
-    <p>12345</p>
-
-    <a href="/pages/menu.html">
-        <button>Siguiente</button>
-    </a>
+    <script defer src="./JS/script.js"></script>
+    <script defer src="./JS/cartas.js"></script>
+    <script defer src="./JS/trivia.js"></script>
 </body>
 </html>
