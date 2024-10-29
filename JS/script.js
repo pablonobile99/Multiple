@@ -2,10 +2,10 @@ let vidas = 3;
 let victorias = 0;
 let intentos = 0;
 
-const intentosSuerte = 10;
+const intentosSuerte = 1;
 const intentosTrivia = 1;
 const intentosGanar = 0;
-const intentosAhorcado = 10;
+const intentosAhorcado = 0;
 
 
 //PUNTAJE------------------------------------------------------
@@ -112,8 +112,7 @@ Ganar.setAttribute("style", propiedadBase);
 
 
 function ejecutarMenu(juego){
-    Suerte.setAttribute("style", propiedadBase);
-    Trivia.setAttribute("style", propiedadBase);
+    borrarTrivia();
     Ahorcado.setAttribute("style", propiedadBase);
     Ganar.setAttribute("style", propiedadBase);
     borrarCartas();
@@ -122,6 +121,7 @@ function ejecutarMenu(juego){
         Trivia.setAttribute("style", propiedadActiva);
         intentos = intentosTrivia;
         h3.innerHTML = "Has elegido " + listaJuegos[0];
+        crearTrivia();
     }
     if (juego==listaJuegos[1]) {
         Ahorcado.setAttribute("style", propiedadActiva);

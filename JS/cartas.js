@@ -99,9 +99,9 @@ function borrarCartas(){
         for (let cardNumber = 0; cardNumber < cantidadCartas; cardNumber++) {
             let card = document.getElementById("carta" + cardNumber);
             tablero.removeChild(card);
-            cartasActivas = [];
-            cartasVolteadas = [];
         }
+        cartasActivas = [];
+        cartasVolteadas = [];
     }
 }
 

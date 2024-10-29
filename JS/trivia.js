@@ -1,70 +1,81 @@
 const cantidadRespuestas = 3;
 
-let preguntaActual = 1;
+let preguntaActual;
 
 let respuestasVoletadas = [];
 
-for (i = 0; i < cantidadRespuestas; i++) {
-    respuestasVoletadas.push(false);
-}
-
-
 
 const trivia = {
-    "P0": {
-        "pregunta": "PPREGUNTA 1",
+    "0": {
+        "pregunta": "Cuál es el valor mas acercado a PI?",
         "correcta": "1",
-        "0": "RESPUESTA 0.0",
-        "1": "RESPUESTA 0.1",
-        "2": "RESPUESTA 0.2",
+        "0": "3.4115",
+        "1": "3.1415",
+        "2": "3.1541",
     },
-    "P1": {
-        "pregunta": "PPREGUNTA 2",
-        "correcta": "1",
-        "0": "RESPUESTA 1.0",
-        "1": "RESPUESTA 1.1",
-        "2": "RESPUESTA 1.2"
+    "1": {
+        "pregunta": "Cuál es el mar mas grande del mundo?",
+        "correcta": "0",
+        "0": "Mar Arabigo",
+        "1": "Mar Caribe",
+        "2": "Mar mediterráneo"
     },
-    "P2": {
-        "pregunta": "PPREGUNTA 3",
-        "correcta": "1",
-        "0": "RESPUESTA 2.0",
-        "1": "RESPUESTA 2.1",
-        "2": "RESPUESTA 2.2"
+    "2": {
+        "pregunta": "Qué pais tiene mayor poblacion?",
+        "correcta": "2",
+        "0": "China",
+        "1": "Estados Unidos",
+        "2": "India"
     }
 }
+
+let banderaTrivia = [];
+for (let i = 0; i < cantidadRespuestas; i++) {
+    banderaTrivia.push(i);    
+}
+
+let banderaTriviaActiva = recorrerobjeto(banderaTrivia);
+
+function crearPreguntasAleatorias(){
+    if(banderaTriviaActiva[0]>-1){
+            let activo = banderaTriviaActiva.shift();
+            preguntaActual = activo;
+    }
+    else{
+        //banderaTriviaActiva = recorrerobjeto(banderaTrivia);
+        alert("No hay mas preguntas.");
+        preguntaActual=-1;
+    }
+}
+
 
 
 let listaRespuestas = [];
 
 function crearListaRespuestas(rAleatoria) {
-    let respuestaAleatoria = "P" + rAleatoria;
+    let respuestaAleatoria = rAleatoria;
     for (i = 0; i < cantidadRespuestas; i++) {
         listaRespuestas.push(trivia[respuestaAleatoria][i]);
     }
 }
 
-
-crearListaRespuestas(preguntaActual);
-
-
 //PREGUNTA------------------------------------------------------
 
-function mostrarPregunta(numeroDePregunta){ 
-    let preguntaAleatoria = "P" + numeroDePregunta;
+function mostrarPregunta(numeroDePregunta){
+    let preguntaAleatoria = numeroDePregunta;
     const textoPregunta = document.createElement("p");
     textoPregunta.innerHTML = trivia[preguntaAleatoria]["pregunta"];
+    textoPregunta.id = "pregunta";
     cuestionario.appendChild(textoPregunta);
 }
 
-mostrarPregunta(preguntaActual);
 
 //---------------------------------------------------------------
 
 function accionRespuesta(numero) {
     intentos--;
-    let respuestaAleatoria = "P" + numero;
-    if (trivia[respuestaAleatoria].correcta==numero) victorias++;
+    let respuestaAleatoria = numero;
+    if (trivia[preguntaActual].correcta==numero) victorias++;
     else vidas--;
 }
 
@@ -81,6 +92,9 @@ function revelarPregunta(i) {
 
 const crearRespuesta = (numeroDePregunta) => {
     const button = document.createElement("button");
+
+    respuestasVoletadas.push(false);
+
     button.innerHTML = listaRespuestas[numeroDePregunta];
     button.style = "display: block"
     button.id = "respuesta" + numeroDePregunta;
@@ -103,4 +117,31 @@ const crearCuestionario = () => {
     }
 };
 
-crearCuestionario();
+
+function crearTrivia(){
+    crearPreguntasAleatorias();
+    crearListaRespuestas(preguntaActual);
+    mostrarPregunta(preguntaActual);
+    crearCuestionario();
+}
+
+function borrarTrivia(){
+    console.log(banderaTriviaActiva);
+    if(document.getElementById("respuesta0")){
+        respuestasVoletadas = [];
+        listaRespuestas = [];
+        let preg = document.getElementById("pregunta");
+        cuestionario.removeChild(preg);
+        for (let respuesta = 0; respuesta < cantidadRespuestas; respuesta++) {
+            let res = document.getElementById("respuesta" + respuesta);
+            cuestionario.removeChild(res);
+        }
+    }
+}
+
+
+
+
+
+
+
