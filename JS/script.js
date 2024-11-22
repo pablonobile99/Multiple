@@ -39,9 +39,15 @@ function mostrarIntentos() {
 
 mostrarIntentos();
 
+function guardarPuntosGlobal(){
+    localStorage.setItem("Vidas",vidas);
+    localStorage.setItem("Victorias",victorias);
+    let vidasG = localStorage.getItem("Vidas");
+    let victoriasG = localStorage.getItem("Victorias");
+    console.log("vidas: " + vidasG + " Victorias: " + victoriasG);
+}
+
 //---------------------------------------------------------------
-
-
 
 //FUNCION ALEATORIA
 
@@ -87,61 +93,51 @@ let juegoActivo = [false,false,false,false];
 
 const menu = document.getElementById("menu");
 const h1 = document.createElement("h1");
-h1.innerHTML = "Bienvenidos a MULTIPLE";
+h1.innerHTML = "Bienvenidos a MÚLTIPLE";
 menu.appendChild(h1);
 
 const h4 = document.createElement("h4");
-h4.innerHTML = "Elige tu categoria y comienza a jugar. Por cada victoria sumas un punto, al llegar a 5 ganas. Por cada derrota perdes una vida, al perder las 3 se acabó el juego.";
+h4.innerHTML = "Elige tu categoría y comienza a jugar. Por cada victoria sumas un punto, al llegar a 5 ganas. Por cada derrota pierdes una vida, si pierdes las 3 se acabó el juego.";
 menu.appendChild(h4);
 
 const h3 = document.createElement("h3");
-h3.innerHTML = "Elije un juego";
+h3.innerHTML = "Elige un juego";
 menu.appendChild(h3);
 
-const propiedadBase = "display: none";
-const propiedadActiva = "display:";
-
-const Suerte = document.getElementById("suerteBlock");
-Suerte.setAttribute("style", propiedadBase);
-const Trivia = document.getElementById("triviaBlock");
-Trivia.setAttribute("style", propiedadBase);
-const Ahorcado = document.getElementById("ahorcadoBlock");
-Ahorcado.setAttribute("style", propiedadBase);
-const Ganar = document.getElementById("ganarBlock");
-Ganar.setAttribute("style", propiedadBase);
-
+function puntajeGlobal(){
+    mostrarPuntaje();
+    mostrarIntentos();
+    guardarPuntosGlobal();
+}
 
 function ejecutarMenu(juego){
     borrarTrivia();
-    Ahorcado.setAttribute("style", propiedadBase);
-    Ganar.setAttribute("style", propiedadBase);
+    borrarAhorcado();
+    borrarSecuencia();
     borrarCartas();
 
     if (juego==listaJuegos[0]) {
-        Trivia.setAttribute("style", propiedadActiva);
         intentos = intentosTrivia;
         h3.innerHTML = "Has elegido " + listaJuegos[0];
         crearTrivia();
     }
     if (juego==listaJuegos[1]) {
-        Ahorcado.setAttribute("style", propiedadActiva);
         intentos = intentosAhorcado;
         h3.innerHTML = "Has elegido " + listaJuegos[1];
+        crearAhorcado();
     }
     if (juego==listaJuegos[2]) {
         intentos = intentosSuerte;
-        Suerte.setAttribute("style", propiedadActiva);
         h3.innerHTML = "Has elegido " + listaJuegos[2];
         crearCartas();
     }
     if (juego==listaJuegos[3]) {
-        Ganar.setAttribute("style", propiedadActiva);
         intentos = intentosGanar;
         h3.innerHTML = "Has elegido " + listaJuegos[3];
-        vidas--;
+        crearSecuencia();
+        //vidas--;
     }
-    mostrarPuntaje();
-    mostrarIntentos();
+    puntajeGlobal();
 }
 
 
@@ -152,7 +148,7 @@ for (let i = 0; i < 4; i++) {
     button.id = "buttonMenu" + i;
     button.addEventListener("click",
         function (){
-            ejecutarMenu(listaJuegos[i]);
+            if(vidas>0)ejecutarMenu(listaJuegos[i]);
         }
     )
     menu.appendChild(button);
